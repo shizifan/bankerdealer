@@ -1,0 +1,18 @@
+add_industry:
+    operate_statement:
+      required: True
+    purchase_statement:
+      required: True
+    production_statement:
+      required: True
+    market_statement:
+      required: True
+
+    returnvalue:
+      - operate_statement
+      - purchase_statement
+      - production_statement
+      - market_statement
+
+    
+      

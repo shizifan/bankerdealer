@@ -7,9 +7,6 @@ from src.ext import db
 
 class IndustryBusiness(object):
 
-
-
-
     @classmethod
     def save(cls, info):
         ret = cls.get_by_id(info.get('user_id'))

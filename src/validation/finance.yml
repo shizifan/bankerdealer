@@ -1,0 +1,15 @@
+add_industry:
+    profit_ability:
+      required: True
+    debtpay_ability:
+      required: True
+    cashflow_ability:
+      required: True
+
+    returnvalue:
+      - profit_ability
+      - debtpay_ability
+      - cashflow_ability
+
+    
+      

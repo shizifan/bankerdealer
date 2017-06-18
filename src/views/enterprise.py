@@ -57,6 +57,12 @@ def detail_handler(enterprise_id):
 @required('enterprise')
 @validation('POST:add_industry')
 def industry_handler():
+    user_id = 100;
+    industry = IndustryBusiness.get_by_id(user_id)
+    if request.method == 'POST':
+        info = parse_form('add_industry')
+        info.update(dict(user_id=user_id))
+        IndustryBusiness.save(info)
     return render_template('enterprise/industry.html', menus = g.menus, industry=industry)
 
 
@@ -64,7 +70,14 @@ def industry_handler():
 @required('enterprise')
 @validation('POST:add_operate')
 def operate_handler():
-    return render_template('enterprise/operate.html', menus = g.menus, operate=operate)
+    user_id = 100;
+    operate = OperateBusiness.get_by_id(user_id)
+    if request.method == 'POST':
+        info = parse_form('add_industry')
+        info.update(dict(user_id=user_id))
+        OperateBusiness.save(info)
+        return render_template('enterprise/operate.html', user_id = user_id, menus=g.menus, operate=operate)
+    return render_template('enterprise/operate.html', user_id = user_id, menus = g.menus, operate=operate)
 
 
 @enterprise.route('/finance', methods = ['GET', 'POST'])

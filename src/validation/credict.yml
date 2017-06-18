@@ -1,0 +1,11 @@
+add_industry:
+    credict_info:
+      required: True
+    lawsuit_info:
+      required: True
+
+    returnvalue:
+      - credict_info
+      - lawsuit_info
+
+      
