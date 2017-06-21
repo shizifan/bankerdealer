@@ -7,10 +7,7 @@ from src.models import *
 from src.ext import db
 
 
-
-
 class HistoryBusiness(object):
-
 
     @classmethod
     def save(cls, info_dict, user_id):

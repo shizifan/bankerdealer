@@ -11,7 +11,6 @@ def parse_form(name):
     returnvalue = form_json.get('returnvalue')
     return dict(zip(returnvalue, [request.form.get(x) for x in returnvalue]))
 
-
 def parse_history(form):
     history_dict = {}
     times = len(form) / 4

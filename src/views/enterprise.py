@@ -57,7 +57,7 @@ def detail_handler():
 @required('enterprise')
 def history_handler():
     enterprise_id = g.userid
-    history = HistoryBusiness.get_by_id(enterprise_id)
+    history = HistoryBusiness.get_by_id(enterprise_id).historgy
     if request.method == 'POST':
         history = parse_history(request.form)
         HistoryBusiness.save(history, g.userid)
@@ -79,22 +79,22 @@ def industry_handler():
 
 @enterprise.route('/operate', methods = ['GET', 'POST'])
 @required('enterprise')
-@validation('POST:add_operate')
+#@validation('POST:add_operate')
 def operate_handler():
     user_id = 100;
     operate = OperateBusiness.get_by_id(user_id)
     if request.method == 'POST':
-        info = parse_form('add_industry')
-        info.update(dict(user_id=user_id))
-        OperateBusiness.save(info)
+        print request.form
         return render_template('enterprise/operate.html', user_id = user_id, menus=g.menus, operate=operate)
     return render_template('enterprise/operate.html', user_id = user_id, menus = g.menus, operate=operate)
 
 
 @enterprise.route('/finance', methods = ['GET', 'POST'])
 @required('enterprise')
-@validation('POST:add_finance')
+#@validation('POST:add_finance')
 def finance_handler():
+    if request.method == 'POST':
+        print request.form
     return render_template('enterprise/finance.html', menus = g.menus, finance=finance)
 
 

@@ -1,4 +1,4 @@
-add_industry:
+add_finance:
     profit_ability:
       required: True
     debtpay_ability:

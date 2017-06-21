@@ -17,6 +17,7 @@
 
 {% block content %}
 <div class="row">
+    <form action="" class="form-horizontal" method="POST" name="a">
     <div class="col-lg-12">
         <div class="panel">
             <div class="panel-heading">
@@ -27,13 +28,11 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form action="" class="form-horizontal" method="POST">
                     <div class="form-body">
-                        <h5>c财务分析</h5>
+                        <h5>财务分析</h5>
                         <hr/>
                         <input type="hidden" name="" value="{{user_id}}">
                         {%if credit%}
-
                         {%else%}
                             {{render_textarea("盈利能力", "profit_ability", "profit_ability", "")}}
                             {{render_textarea("偿债能力", "debtpay_ability", "debtpay_ability", "")}}
@@ -48,11 +47,13 @@
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
+    </form>
+
 </div>
+
 {% endblock %}
 
 {% block js_extention %}
