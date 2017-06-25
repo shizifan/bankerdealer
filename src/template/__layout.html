@@ -3,107 +3,128 @@
 {%from "helper/formelementhelpers.html" import render_textarea%}
 {%from "helper/formelementhelpers.html" import render_disable_input%}
 {%from "helper/formelementhelpers.html" import render_disable_textarea%}
+{%from "helper/formelementhelpers.html" import render_company_list%}
+
 <html lang="en">
     <head>
-        <title>石</title>
+        <title>BayesData</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 
-        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/plugins/toastr/toastr.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/plugins/gritter/jquery.gritter.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"/>
+
         <!-- end of global css -->
         <!--page level css -->
-        <link rel="stylesheet" href="{{url_for('static', filename='vendors/swiper/css/swiper.min.css')}}">
-        <link href="{{url_for('static', filename='vendors/nvd3/css/nv.d3.min.css')}}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{url_for('static', filename='vendors/lcswitch/css/lc_switch.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom.css')}}">
 
-        <link href="{{url_for('static', filename='css/custom_css/dashboard1.css')}}" rel="stylesheet" type="text/css"/>
-        <link href="{{url_for('static', filename='css/custom_css/dashboard1_timeline.css')}}" rel="stylesheet"/>
-        <link href="{{url_for('static', filename='css/buttons_sass.css')}}" rel="stylesheet"/>
-        <link href="{{url_for('static', filename='css/advbuttons.css')}}" rel="stylesheet"/>
         {% block css_extention %}
         {% endblock %}
 
     </head>
-    <body class='skin-default'>
-        <div class="preloader">
-            <div class="loader_img">
-                <img src="{{url_for('static', filename='img/loader.gif')}}" alt="loading..." height="64" width="64">
+    <body>
+       <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"></span>
+                            <span class="text-muted text-xs block">{{g.user}} <b class="caret"></b></span>
+                            </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">银行信息</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url_for('logout_handler')}}">登出</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    {%for menu in g.bank_menus%}
+                        <li>
+                            <a href="{{menu.href}}"><i class="fa {{menu.icon}}"></i> <span class="nav-label">{{menu.name}}</span></a>
+                        </li>
+                    {%endfor%}
+                </ul>
+
             </div>
-        </div>
+        </nav>
 
-
-        <header class="header">
-            <nav class="navbar navbar-static-top" role='navigation'>
-                <div>
-                    <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i
-                            class="fa fa-fw ti-menu"></i>
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message"></span>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
                     </a>
-                </div>
-                <div class="pull-right">
-                    {%block logout%}
-                    <button class='button button-pill button-action-flat hvr-pulse' href="{{url_for('logout_handler')}}">退出登录</button>
-                    {%endblock%}
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <aside class="left-side sidebar-offcanvas">
-                <section class="sidebar">
-                   <div id="menu" role="navigation">
-                       <ul class="navigation">
-                           {%for menu in menus%}
-                            <li>
-                                <a href="{{menu.get('href')}}">
-                                    <i class="menu-icon ti-desktop"></i>
-                                    <span class="mm-text ">{{menu.get('name')}}</span>
-                                </a>
-                            </li>
-                            {%endfor%}
-                       </ul>
-                   <div>
-                </section>
-            </aside>
-            <aside class="right-side">
-                <section class="content">
-                    {% block content %}
-                    {% endblock %}
-                </section>
-            </aside>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-sign-out"></i> 登出
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
         </div>
-
-
-
-        <script src="{{url_for('static', filename='js/app.js')}}" type="text/javascript"></script>
-        {% block js_extention %}
+        {% block content %}
         {% endblock %}
+        </div>
+    </div>
+
+
         <!-- end of global js -->
         <!-- begining of page level js -->
         <!--Sparkline Chart-->
-        <script type="text/javascript" src="{{url_for('static', filename='js/custom_js/sparkline/jquery.flot.spline.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flip/js/jquery.flip.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/lcswitch/js/lc_switch.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flotchart/js/jquery.flot.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flotchart/js/jquery.flot.resize.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flotchart/js/jquery.flot.stack.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flotspline/js/jquery.flot.spline.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/flot.tooltip/js/jquery.flot.tooltip.js')}}"></script>
-        <!--swiper-->
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/swiper/js/swiper.min.js')}}"></script>
-        <!--chartjs-->
-        <script src="{{url_for('static', filename='vendors/chartjs/js/Chart.js')}}"></script>
-        <!--nvd3 chart-->
-        <script type="text/javascript" src="{{url_for('static', filename='js/nvd3/d3.v3.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/nvd3/js/nv.d3.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/moment/js/moment.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/advanced_newsTicker/js/newsTicker.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='js/dashboard1.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/Buttons/js/buttons.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/laddabootstrap/js/spin.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='vendors/laddabootstrap/js/ladda.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='js/custom_js/button_main.js')}}"></script>
-        <!-- end of page level js -->
+        <script type="text/javascript" src="{{url_for('static', filename='js/jquery-2.1.1.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+        <script type="text/javascript" src="{{url_for('static', filename='js/inspinia.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/pace/pace.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/flot/jquery.flot.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/flot/jquery.flot.spline.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/flot/jquery.flot.resize.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/flot/jquery.flot.pie.js')}}"></script>
+
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/gritter/jquery.gritter.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/demo/sparkline-demo.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/plugins/toastr/toastr.min.js')}}"></script>
+
+       <script type="text/javascript" src="{{url_for('static', filename='js/plugins/chartJs/Chart.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/demo/flot-demo.js')}}"></script>
+
+        {% block js_extention %}
+        {% endblock %}
     </body>
 </html>

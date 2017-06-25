@@ -3,7 +3,7 @@
 
 import yaml
 import jwt
-from flask import Flask, jsonify, g, request, abort, url_for
+from flask import Flask, jsonify, g, request, abort, url_for, render_template
 
 from config import settings
 
@@ -11,9 +11,6 @@ from src.ext import db
 from src.admin import admin
 from src.views.enterprise import enterprise
 from src.views.bank import banker
-
-
-
 
 
 DEFAULT_APP_NAME = settings.PROJECT_NAME
@@ -35,6 +32,10 @@ def create_app(app_name=None, modules = None):
     configure_modules(app, modules)
     configure_before_handlers(app)
     configure_logout(app)
+
+    @app.route('/')
+    def index_hander():
+        return render_template('landing.html', **locals())
     return app
 
 
@@ -72,12 +73,19 @@ def configure_before_handlers(app):
     @app.before_request
     def auth():
         g.menus = [
-            {'name': u'概况','href': url_for('enterprise.detail_handler')},
+            {'name': u'企业概况','href': url_for('enterprise.detail_handler')},
             {'name': u'历史沿革','href': url_for('enterprise.history_handler')},
-            {'name': u'行业','href': url_for('enterprise.industry_handler')},
-            {'name': u'经营范围','href': url_for('enterprise.operate_handler')},
-            {'name': u'资产情况','href': url_for('enterprise.finance_handler')},
-            {'name': u'信用','href': url_for('enterprise.credit_handler')},
+            {'name': u'行业分析','href': url_for('enterprise.industry_handler')},
+            {'name': u'经营分析','href': url_for('enterprise.operate_handler')},
+            {'name': u'主营业务收入', 'href': url_for('enterprise.revenue_handler')},
+            {'name': u'财务分析','href': url_for('enterprise.finance_handler')},
+            {'name': u'征信及法律诉讼分析','href': url_for('enterprise.credit_handler')},
+        ]
+        g.bank_menus = [
+            {'name': u'主页', 'href': url_for('banker.index_handler'), 'icon': 'fa-star'},
+            {'name': u'企业列表', 'href': url_for('banker.index_handler'), 'icon':'fa-th-large'},
+            {'name': u'行业咨询', 'href': url_for('banker.index_handler'), 'icon':'fa-bar-chart-o'},
+
         ]
         cj = request.cookies.get(settings.AUTH_KEY)
         g.role = ''
@@ -88,7 +96,8 @@ def configure_before_handlers(app):
             try:
                 info = jwt.decode(cj, settings.SECRET)
             except Exception as e:
-                abort(403)
+                print e
+                #abort(403)
             g.role = info.get('role')
             g.username = info.get('username')
             g.userid = info.get('userid')

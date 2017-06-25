@@ -57,7 +57,7 @@ def detail_handler():
 @required('enterprise')
 def history_handler():
     enterprise_id = g.userid
-    history = HistoryBusiness.get_by_id(enterprise_id).historgy
+    history = HistoryBusiness.get_by_id(enterprise_id)
     if request.method == 'POST':
         history = parse_history(request.form)
         HistoryBusiness.save(history, g.userid)
@@ -87,6 +87,17 @@ def operate_handler():
         print request.form
         return render_template('enterprise/operate.html', user_id = user_id, menus=g.menus, operate=operate)
     return render_template('enterprise/operate.html', user_id = user_id, menus = g.menus, operate=operate)
+
+@enterprise.route('/revenue', methods = ['GET', 'POST'])
+@required('enterprise')
+def revenue_handler():
+    enterprise_id = g.userid
+    revenue = RevenueBusiness.get_by_id(enterprise_id)
+    if request.method == 'POST':
+        revenue = parse_history(request.form)
+        HistoryBusiness.save(revenue, g.userid)
+        return render_template('enterprise/revenue.html',user_id = enterprise_id, menus = g.menus, revenue=revenue)
+    return render_template('enterprise/revenue.html',user_id = enterprise_id, menus = g.menus, revenue=revenue)
 
 
 @enterprise.route('/finance', methods = ['GET', 'POST'])

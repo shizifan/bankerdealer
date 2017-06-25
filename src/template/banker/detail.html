@@ -17,40 +17,137 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-12">
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-fw ti-pencil"></i>基本信息</h3>
-                <span class="pull-right hidden-xs">
-                    <i class="fa fa-fw ti-angle-up clickable"></i>
-                    <i class="fa fa-fw ti-close removepanel clickable"></i>
-                </span>
-            </div>
-            <div class="panel-body">
-                <form action="" class="form-horizontal" method="POST">
-                    <div class="form-body">
-                        <h5>概况</h5>
-                        <hr/>
-                        <input type="hidden" name="" value="{{user_id}}">
-                        {%if company%}
-                            {{render_disable_input("公司名称", "name", "name", "公司名称", company.name)}}
-                            {{render_disable_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码", company.credit_code)}}
-                            {{render_disable_input("注册地址", "register_addr", "register_addr", "注册地址", company.register_addr)}}
-                            {{render_disable_input("注册资本", "register_capital", "register_capital", "注册资本", company.register_capital)}}
-                            {{render_disable_input("法定代表人", "representative", "representative", "法定代表人", company.representative)}}
-                            {{render_disable_input("成立日期", "establish_time", "establish_time", "成立日期", company.establish_time)}}
-                            {{render_disable_textarea("经营范围", "business_scope", "business_scope", company.business_scope)}}
-                        {%else%}
-                            {{render_disable_input("公司名称", "name", "name", "公司名称")}}
-                            {{render_disable_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码")}}
-                            {{render_disable_input("注册地址", "register_addr", "register_addr", "注册地址")}}
-                            {{render_disable_input("注册资本", "register_capital", "register_capital", "注册资本")}}
-                            {{render_disable_input("法定代表人", "representative", "representative", "法定代表人")}}
-                            {{render_disable_input("成立日期", "establish_time", "establish_time", "成立日期")}}
-                            {{render_disable_textarea("经营范围", "business_scope", "business_scope")}}
-                        {%endif%}
+    <div class="col-lg-9">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="m-b-md">
+                                <a href="#" class="btn btn-white btn-xs pull-right"></a>
+                                <h2>大连龙缘化学有限公司</h2>
+                            </div>
+                            <dl class="dl-horizontal">
+                                <dt>状态:</dt> <dd><span class="label label-primary">正在处理</span></dd>
+                            </dl>
+                        </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <dl class="dl-horizontal">
+
+                                <dt>申请人:</dt> <dd>邹德元</dd>
+                                <dt>邮箱:</dt> <dd>zhoudeyuan@gmail.com</dd>
+                                <dt>联系电话:</dt> <dd>18600008888</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-7" id="cluster_info">
+                            <dl class="dl-horizontal" >
+
+                                <dt>更新时间:</dt> <dd> 2016-06-02 12:15:57 </dd>
+                                <dt>创建事件:</dt> <dd> 2016-06-03 23:36:57 </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>贷款申请完成度:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                    <small>项目完成 <strong>60%</strong>. 等待贷审会初步审核.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                        <div class="panel blank-panel">
+                        <div class="panel-heading">
+                            <div class="panel-options">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab-1" data-toggle="tab">基本信息</a></li>
+                                    <li class=""><a href="#tab-2" data-toggle="tab">行业分析</a></li>
+                                    <li class=""><a href="#tab-2" data-toggle="tab">经营分析</a></li>
+                                    <li class=""><a href="#tab-2" data-toggle="tab">财务分析</a></li>
+                                    <li class=""><a href="#tab-2" data-toggle="tab">征信及法律诉讼分析</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+
+                        <div class="tab-content">
+                        <div class="tab-pane active" id="tab-1">
+                            <form action="" class="form-horizontal" method="POST">
+                                <div class="form-body">
+                                    <input type="hidden" name="" value="{{user_id}}">
+                                    {%if company%}
+                                        {{render_input("公司名称", "name", "name", "公司名称", company.name)}}
+                                        {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码", company.credit_code)}}
+                                        {{render_input("注册地址", "register_addr", "register_addr", "注册地址", company.register_addr)}}
+                                        {{render_input("注册资本", "register_capital", "register_capital", "注册资本", company.register_capital)}}
+                                        {{render_input("法定代表人", "representative", "representative", "法定代表人", company.representative)}}
+                                        {{render_input("成立日期", "establish_time", "establish_time", "成立日期", company.establish_time)}}
+                                        {{render_textarea("经营范围", "business_scope", "business_scope", company.business_scope)}}
+                                    {%else%}
+                                        {{render_input("公司名称", "name", "name", "公司名称")}}
+                                        {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码")}}
+                                        {{render_input("注册地址", "register_addr", "register_addr", "注册地址")}}
+                                        {{render_input("注册资本", "register_capital", "register_capital", "注册资本")}}
+                                        {{render_input("法定代表人", "representative", "representative", "法定代表人")}}
+                                        {{render_input("成立日期", "establish_time", "establish_time", "成立日期")}}
+                                        {{render_textarea("经营范围", "business_scope", "business_scope")}}
+                                    {%endif%}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab-2">
+
+                        </div>
+                        </div>
+
+                        </div>
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="wrapper wrapper-content project-manager">
+            <h4>Project description</h4>
+            <img src="img/zender_logo.png" class="img-responsive">
+            <p class="small">
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
+                even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+            </p>
+            <p class="small font-bold">
+                <span><i class="fa fa-circle text-warning"></i> High priority</span>
+            </p>
+            <h5>Project tag</h5>
+            <ul class="tag-list" style="padding: 0">
+                <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
+            </ul>
+            <h5>Project files</h5>
+            <ul class="list-unstyled project-files">
+                <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
+                <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
+                <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
+                <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
+            </ul>
+            <div class="text-center m-t-md">
+                <a href="#" class="btn btn-xs btn-primary">Add files</a>
+                <a href="#" class="btn btn-xs btn-primary">Report contact</a>
+
             </div>
         </div>
     </div>
@@ -58,16 +155,5 @@
 {% endblock %}
 
 {% block js_extention %}
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/jquery.dataTables.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.buttons.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.colReorder.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.responsive.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.rowReorder.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/buttons.colVis.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/buttons.html5.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/buttons.bootstrap.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/buttons.print.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='vendors/datatables/js/dataTables.scroller.js')}}"></script>
-<script src="{{url_for('static', filename='js/custom_js/advanced_datatables.js')}}" type="text/javascript"></script>
+
 {% endblock %}

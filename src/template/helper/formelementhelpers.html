@@ -1,33 +1,25 @@
 {%macro render_input(label, id, name, placeholder, value='')%}
-<div class="form-group m-t-10">
-    <label for="{{id}}" class="col-sm-3 control-label">
-        {{label}}
-    </label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <span class="input-group-addon">
-            </span>
-            <input type="text" id="{{id}}"
-                    class="form-control"
-                    name="{{name}}"
-                    value="{{value}}"
-                    placeholder="{{placeholder}}">
-            </input>
-        </div>
+<div class="form-group">
+    <label class="col-lg-2 control-label">{{label}}</label>
+    <div class="col-lg-10">
+        <input type="text" id="{{id}}"
+            class="form-control"
+            name="{{name}}"
+            value="{{value}}"
+            placeholder="{{placeholder}}">
+        </input>
     </div>
 </div>
 {%endmacro%}
 
-
-
 {%macro render_textarea(label, id, name, value="")%}
 <div class="form-group">
-    <label for="{{id}}" class="col-sm-3 control-label">{{label}}</label>
-    <div class="col-sm-6">
-    <textarea id="{{id}}" rows="3" name="{{name}}"
-                class="form-control resize_vertical">
-                {{value}}
-    </textarea>
+    <label class="col-lg-2 control-label">{{label}}</label>
+    <div class="col-lg-10">
+        <textarea id="{{id}}" rows="3" name="{{name}}"
+            class="form-control resize_vertical">
+            {{value}}
+        </textarea>
     </div>
 </div>
 {%endmacro%}
@@ -64,4 +56,34 @@
     </textarea>
     </div>
 </div>
+{%endmacro%}
+
+{%macro render_company_list(id, name, action, time, progress)%}
+<tr>
+    <td class="project-status">
+        <span class="label label-primary">{{action}}</span>
+    </td>
+    <td class="project-title">
+        <a href={{id}}>{{name}}</a>
+    </td>
+    <td class="project-title">
+        申请时间
+        <br/>
+        <small>{{time}}</small>
+    </td>
+    <td class="project-title">
+        最后一次处理时间
+        <br/>
+        <small>{{time}}</small>
+    </td>
+    <td class="project-completion">
+            <small>处理进度: {{progress}}%</small>
+            <div class="progress progress-mini">
+                <div style="width: 48%;" class="progress-bar"></div>
+            </div>
+    </td>
+    <td class="project-actions">
+        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 处理 </a>
+    </td>
+</tr>
 {%endmacro%}

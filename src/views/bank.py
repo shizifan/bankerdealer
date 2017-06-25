@@ -12,7 +12,6 @@ from config.settings import AUTH_KEY
 
 banker = Blueprint('banker', __name__)
 
-
 @banker.route('/login', methods = ['GET', 'POST'])
 @validation('POST:login')
 def login_handler():
@@ -34,35 +33,18 @@ def logout_handler():
     return resp
 
 @banker.route('/')
-@required('banker')
 def index_handler():
-    menus = [
-        dict(
-            name = u'申请列表',
-            href = '/banker/'
-        )
-    ]
-    enterprise_list = EnterpriseBusiness.get_list()
-    return render_template('banker/list.html', menus = menus, enterprise_list = enterprise_list)
-
-
+    enterprise_list = []
+    g.user = u"大连银行"
+    enterprise_list.append({'name': u"大连龙缘化学有限公司", 'action': u'正在处理', 'time':'2017-06-01', 'id':'1', 'progress':'60'})
+    return render_template('banker/bankindex.html', enterprise_list = enterprise_list)
 
 @banker.route('/<int:enterprise_id>', methods = ['GET', 'POST'])
-@required('banker')
-@validation('POST:add_company')
+#@required('banker')
+#@validation('POST:add_company')
 def detail_handler(enterprise_id):
-    menus = [
-        dict(
-            name = u'申请列表',
-            href = '/banker/'
-        )
-    ]
+    g.user = u"大连银行"
     company = CompanyBusiness.get_by_id(enterprise_id)
-    if request.method == 'POST':
-        info = parse_form('add_company')
-        info.update(dict(user_id=enterprise_id))
-        CompanyBusiness.save(info)
-        return render_template('banker/detail.html',user_id = enterprise_id, menus = menus, company=company)
-    return render_template('banker/detail.html',user_id = enterprise_id, menus = menus, company=company)
+    return render_template('banker/detail.html',user_id = enterprise_id, company=company)
 
 

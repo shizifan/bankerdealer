@@ -7,9 +7,6 @@ from src.ext import db
 
 class Revenue(EntityModel):
 
-    year = db.Column(db.String(10))
-    product_name = db.Column(db.String(100))
-    income = db.Column(db.Float)
-    percentage = db.Column(db.Float)
-    gross = db.Column(db.Float)
+    content = db.Column(db.Text)
+    user_id = db.Column(db.Integer)
     company_id = db.Column(db.Integer)
