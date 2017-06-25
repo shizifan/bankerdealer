@@ -3,9 +3,7 @@
 
 from user import User
 from role import Role
-from company import Company
-from history import History
-from shareholder import ShareHolder
+from basicinfo import Basicinfo
 from industry import Industry
 from operate import Operate
 from finance import Finance

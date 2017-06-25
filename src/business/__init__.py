@@ -5,6 +5,7 @@
 from auth import AuthBusiness
 from company import CompanyBusiness
 from enterpise import EnterpriseBusiness
+from basicinfo import BasicinfoBusiness
 from industry import IndustryBusiness
 from operate import OperateBusiness
 from finance import FinanceBusiness

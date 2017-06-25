@@ -44,7 +44,7 @@ def index_handler():
 #@validation('POST:add_company')
 def detail_handler(enterprise_id):
     g.user = u"大连银行"
-    company = CompanyBusiness.get_by_id(enterprise_id)
-    return render_template('banker/detail.html',user_id = enterprise_id, company=company)
+    enterprise = BasicinfoBusiness.get_by_id(enterprise_id)
+    return render_template('banker/detail.html',enterprise_id = enterprise_id, enterprise=enterprise)
 
 

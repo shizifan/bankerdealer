@@ -84,26 +84,74 @@
                         <div class="tab-pane active" id="tab-1">
                             <form action="" class="form-horizontal" method="POST">
                                 <div class="form-body">
-                                    <input type="hidden" name="" value="{{user_id}}">
-                                    {%if company%}
-                                        {{render_input("公司名称", "name", "name", "公司名称", company.name)}}
-                                        {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码", company.credit_code)}}
-                                        {{render_input("注册地址", "register_addr", "register_addr", "注册地址", company.register_addr)}}
-                                        {{render_input("注册资本", "register_capital", "register_capital", "注册资本", company.register_capital)}}
-                                        {{render_input("法定代表人", "representative", "representative", "法定代表人", company.representative)}}
-                                        {{render_input("成立日期", "establish_time", "establish_time", "成立日期", company.establish_time)}}
-                                        {{render_textarea("经营范围", "business_scope", "business_scope", company.business_scope)}}
-                                    {%else%}
-                                        {{render_input("公司名称", "name", "name", "公司名称")}}
-                                        {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码")}}
-                                        {{render_input("注册地址", "register_addr", "register_addr", "注册地址")}}
-                                        {{render_input("注册资本", "register_capital", "register_capital", "注册资本")}}
-                                        {{render_input("法定代表人", "representative", "representative", "法定代表人")}}
-                                        {{render_input("成立日期", "establish_time", "establish_time", "成立日期")}}
-                                        {{render_textarea("经营范围", "business_scope", "business_scope")}}
-                                    {%endif%}
+                                        <div class="ibox-title">
+                                            <h5>概况</h5>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <input type="hidden" name="" value="{{user_id}}">
+                                            {%if enterprise%}
+                                                {{render_input("公司名称", "name", "name", "公司名称", enterprise.name)}}
+                                                {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码", enterprise.credit_code)}}
+                                                {{render_input("注册地址", "register_addr", "register_addr", "注册地址", enterprise.register_addr)}}
+                                                {{render_input("注册资本", "register_capital", "register_capital", "注册资本", enterprise.register_capital)}}
+                                                {{render_input("法定代表人", "representative", "representative", "法定代表人", enterprise.representative)}}
+                                                {{render_input("成立日期", "establish_time", "establish_time", "成立日期", enterprise.establish_time)}}
+                                                {{render_textarea("经营范围", "business_scope", "business_scope", enterprise.business_scope)}}
+                                            {%else%}
+                                                {{render_input("公司名称", "name", "name", "公司名称")}}
+                                                {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码")}}
+                                                {{render_input("注册地址", "register_addr", "register_addr", "注册地址")}}
+                                                {{render_input("注册资本", "register_capital", "register_capital", "注册资本")}}
+                                                {{render_input("法定代表人", "representative", "representative", "法定代表人")}}
+                                                {{render_input("成立日期", "establish_time", "establish_time", "成立日期")}}
+                                                {{render_textarea("经营范围", "business_scope", "business_scope")}}
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                <div class="form-body">
+                                        <div class="ibox-title">
+                                            <h5>历史沿革</h5>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" >
+                                                <thead>
+                                                <tr>
+                                                    <th>变更事项</th>
+                                                    <th>变更前内容</th>
+                                                    <th>变更后内容</th>
+                                                    <th>变更日期</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if(enterprise['history']) %}
+                                                    {% for item in enterprise['history'] %}
+                                                        <tr class="M_cptr">
+                                                            <td><input type="text" class="form-control" name="content-history-{{loop.index}}" value="{{enterprise['history'][item].content}}"></td>
+                                                            <td><input type="text" class="form-control" name="before-history-{{loop.index}}" value="{{enterprise['history'][item].before}}"></td>
+                                                            <td><input type="text" class="form-control" name="after-history-{{loop.index}}" value="{{enterprise['history'][item].after}}"></td>
+                                                            <td><input type="text" class="form-control" name="time-history-{{loop.index}}" value="{{enterprise['history'][item].time}}"></td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="form-actions">
+                                    <div class="ibox-content">
+
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center">
+                                            <button type="submit" class="btn btn-primary pull-right">提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </form>
+
                         </div>
                         <div class="tab-pane" id="tab-2">
 

@@ -1,0 +1,115 @@
+{% extends "__layout.html" %}
+
+{% block css_extention %}
+{% endblock %}
+
+{%block logout%}
+<a class='button button-pill button-action-flat hvr-pulse' href="{{url_for('enterprise.logout_handler')}}">退出登录</a>
+{%endblock%}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+            <form action="" class="form-horizontal" method="POST">
+            <div class="ibox float-e-margins">
+
+                <div class="form-body">
+                        <div class="ibox-title">
+                            <h5>概况</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <input type="hidden" name="" value="{{user_id}}">
+                            {%if enterprise%}
+                                {{render_input("公司名称", "name", "name", "公司名称", enterprise.name)}}
+                                {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码", enterprise.credit_code)}}
+                                {{render_input("注册地址", "register_addr", "register_addr", "注册地址", enterprise.register_addr)}}
+                                {{render_input("注册资本", "register_capital", "register_capital", "注册资本", enterprise.register_capital)}}
+                                {{render_input("法定代表人", "representative", "representative", "法定代表人", enterprise.representative)}}
+                                {{render_input("成立日期", "establish_time", "establish_time", "成立日期", enterprise.establish_time)}}
+                                {{render_textarea("经营范围", "business_scope", "business_scope", enterprise.business_scope)}}
+                            {%else%}
+                                {{render_input("公司名称", "name", "name", "公司名称")}}
+                                {{render_input("统一社会信用代码", "credit_code", "credit_code", "统一社会信用代码")}}
+                                {{render_input("注册地址", "register_addr", "register_addr", "注册地址")}}
+                                {{render_input("注册资本", "register_capital", "register_capital", "注册资本")}}
+                                {{render_input("法定代表人", "representative", "representative", "法定代表人")}}
+                                {{render_input("成立日期", "establish_time", "establish_time", "成立日期")}}
+                                {{render_textarea("经营范围", "business_scope", "business_scope")}}
+                            {%endif%}
+                        </div>
+                    </div>
+                <div class="form-body">
+                        <div class="ibox-title">
+                            <h5>历史沿革</h5>
+                            <div class="ibox-tools">
+                                <a class="pull-right">
+                                    <button type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs" id="addButton"><i class="fa fa-plus"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th>变更事项</th>
+                                    <th>变更前内容</th>
+                                    <th>变更后内容</th>
+                                    <th>变更日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(enterprise['history']) %}
+                                    {% for item in enterprise['history'] %}
+                                        <tr class="M_cptr">
+                                            <td><input type="text" class="form-control" name="content-history-{{loop.index}}" value="{{enterprise['history'][item].content}}"></td>
+                                            <td><input type="text" class="form-control" name="before-history-{{loop.index}}" value="{{enterprise['history'][item].before}}"></td>
+                                            <td><input type="text" class="form-control" name="after-history-{{loop.index}}" value="{{enterprise['history'][item].after}}"></td>
+                                            <td><input type="text" class="form-control" name="time-history-{{loop.index}}" value="{{enterprise['history'][item].time}}"></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="form-actions">
+                    <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary pull-right">提交
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_extention %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#addButton').click(function(){
+        var tr = $('.M_cptr').eq(-1).clone();
+        tr.children().each(function(){
+            var name = $(this).find('input').attr('name')
+            var affix = Number(name.split('-')[2]) + 1;
+            var new_name = name.split('-')[0] + '-' + name.split('-')[1] + '-' + affix;
+            $(this).find('input').val("");
+            $(this).find('input').attr('name', new_name);
+
+        });
+        $('tbody').append(tr)
+    });
+});
+</script>
+<script type="text/javascript" src="{{url_for('static', filename='js/plugins/footable/footable.all.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/plugins/dataTables/datatables.min.js')}}"></script>
+{% endblock %}

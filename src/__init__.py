@@ -73,8 +73,7 @@ def configure_before_handlers(app):
     @app.before_request
     def auth():
         g.menus = [
-            {'name': u'企业概况','href': url_for('enterprise.detail_handler')},
-            {'name': u'历史沿革','href': url_for('enterprise.history_handler')},
+            {'name': u'企业概况','href': url_for('enterprise.basicinfo_handler')},
             {'name': u'行业分析','href': url_for('enterprise.industry_handler')},
             {'name': u'经营分析','href': url_for('enterprise.operate_handler')},
             {'name': u'主营业务收入', 'href': url_for('enterprise.revenue_handler')},

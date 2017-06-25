@@ -9,9 +9,7 @@ from src.models import *
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Role, db.session))
-admin.add_view(ModelView(Company, db.session))
-admin.add_view(ModelView(History, db.session))
-admin.add_view(ModelView(ShareHolder, db.session))
+admin.add_view(ModelView(Basicinfo, db.session))
 
 
 

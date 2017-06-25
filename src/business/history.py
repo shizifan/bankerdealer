@@ -11,8 +11,10 @@ class HistoryBusiness(object):
 
     @classmethod
     def save(cls, info_dict, user_id):
-        ret = cls._get_by_id(user_id)
+        #ret = cls._get_by_id(user_id)
+        ret = None
         if ret is None:
+            print "no history"
             history = History(
                 content = json.dumps(info_dict),
                 user_id = user_id
@@ -20,10 +22,10 @@ class HistoryBusiness(object):
             db.session.add(history)
             db.session.commit()
             return 0
-        ret.content = json.dumps(info_dict)
-        db.session.add(ret)
-        db.session.commit()
-        return 0
+        #ret.content = json.dumps(info_dict)
+        #db.session.add(ret)
+        #db.session.commit()
+        #return 0
 
     @classmethod
     def _get_by_id(cls, enterprise_id):
